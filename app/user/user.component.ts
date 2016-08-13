@@ -81,11 +81,22 @@ export class NewUserComponent implements CanDeactivate {
   onSubmit(){
     this.isValidForm = true;
 
-    this._userService.addUser( this.form.value )
-            .subscribe( x => {
-              // this.form.markAsPristine might come in the future. It will clean the form
-              this._router.navigate(['Users']);
+    if(this.user.id){
+      console.log("update");
+      this._userService.updateUser( this.user )
+            .subscribe( response => {
+              this._router.navigate(['Users'])
             })
+    }
+    else{
+      console.log("add");
+      this._userService.addUser( this.form.value )
+              .subscribe( response => {
+                // this.form.markAsPristine might come in the future. It will clean the form
+                this._router.navigate(['Users']);
+              })
+    }
+
 
 
   }

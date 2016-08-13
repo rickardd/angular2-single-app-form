@@ -25,4 +25,13 @@ export class UserService {
     // whould go to e.g www.domain.com/user/create
     return this._http.post( this.url, JSON.stringify(user) )
   }
+  updateUser( user ){
+    // whould go to e.g www.domain.com/user/create
+    return this._http.put( this.userUrl( user.id ), JSON.stringify(user) )
+  }
+
+  private
+    userUrl( userId ){
+      return this.url + '/' + userId;
+    }
 }

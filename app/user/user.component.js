@@ -77,11 +77,21 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', 'angular
                 NewUserComponent.prototype.onSubmit = function () {
                     var _this = this;
                     this.isValidForm = true;
-                    this._userService.addUser(this.form.value)
-                        .subscribe(function (x) {
-                        // this.form.markAsPristine might come in the future. It will clean the form
-                        _this._router.navigate(['Users']);
-                    });
+                    if (this.user.id) {
+                        console.log("update");
+                        this._userService.updateUser(this.user)
+                            .subscribe(function (response) {
+                            _this._router.navigate(['Users']);
+                        });
+                    }
+                    else {
+                        console.log("add");
+                        this._userService.addUser(this.form.value)
+                            .subscribe(function (response) {
+                            // this.form.markAsPristine might come in the future. It will clean the form
+                            _this._router.navigate(['Users']);
+                        });
+                    }
                 };
                 NewUserComponent.prototype.routerCanDeactivate = function (next, previous) {
                     // if form.valid or if disclamers agreed.

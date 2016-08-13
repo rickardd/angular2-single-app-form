@@ -39,6 +39,13 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
                     // whould go to e.g www.domain.com/user/create
                     return this._http.post(this.url, JSON.stringify(user));
                 };
+                UserService.prototype.updateUser = function (user) {
+                    // whould go to e.g www.domain.com/user/create
+                    return this._http.put(this.userUrl(user.id), JSON.stringify(user));
+                };
+                UserService.prototype.userUrl = function (userId) {
+                    return this.url + '/' + userId;
+                };
                 UserService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])
