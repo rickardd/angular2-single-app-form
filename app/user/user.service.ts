@@ -18,7 +18,7 @@ export class UserService {
                 .map( response => response.json());
   }
   getUser( userId ){
-    return this._http.get( this.url + '/' + userId )
+    return this._http.get( this.userUrl( userId ) )
                 .map( response => response.json());
   }
   addUser( user ){
@@ -28,6 +28,10 @@ export class UserService {
   updateUser( user ){
     // whould go to e.g www.domain.com/user/create
     return this._http.put( this.userUrl( user.id ), JSON.stringify(user) )
+  }
+  deleteUser( user ){
+    // whould go to e.g www.domain.com/user/create
+    return this._http.delete( this.userUrl( user.id ) )
   }
 
   private

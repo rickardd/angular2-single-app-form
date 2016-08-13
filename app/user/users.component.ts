@@ -20,14 +20,30 @@ export class UsersComponent implements OnInit {
 
   }
 
-  users : {};
+  users : any[];
 
   ngOnInit(){
 
     this._usersService.getUsers()
             .subscribe( response => {
               this.users = response;
-            } );
+            });
+  }
+
+  deleteUser(user){
+    if(confirm("Are you sure you want to delete " + user.name + " ?")){
+
+      var index = this.users.indexOf(user);
+
+      this.users.splice(index, 1);
+
+      this._usersService.deleteUser(user)
+            .subscribe( null, error => {
+                alert("Something we went wrong. User is not deleted.");
+                this.users.splice(index, 0, user);
+            })
+
+    }
   }
 }
 
